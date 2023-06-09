@@ -175,7 +175,10 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   void _listenCollapseChange() {
     _isCollapsed = widget.isCollapsed;
     var endWidth = _isCollapsed ? widget.minWidth : tempWidth;
-    _animateTo(endWidth);
+    // fix `RenderFlex overflowed` exception
+    Future.delayed(Duration(milliseconds: 100)).then((v) {
+      _animateTo(endWidth);
+    });
   }
 
   void _animateTo(double endWidth) {

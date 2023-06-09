@@ -73,6 +73,7 @@ class _CollapsibleMultiLevelItemWidgetState
     return Column(
       children: [
         GestureDetector(
+          behavior: HitTestBehavior.translucent,
           onTap: () {
             if (widget.onTapMainLevel != null) {
               widget.onTapMainLevel!();
@@ -102,45 +103,45 @@ class _CollapsibleMultiLevelItemWidgetState
             child: Container(
               height: widget.extendable == true && isOpen ? null : 0,
               child: Column(
-                children: widget.subItems
-                    .map((subItem) => CollapsibleItemWidget(
-                          onHoverPointer: widget.onHoverPointer,
-                          padding: widget.padding,
-                          offsetX: widget.offsetX,
-                          scale: widget.scale,
-                          leading: subItem.iconImage != null
-                              ? CircleAvatar(
-                                  radius: widget.iconSize! / 2,
-                                  backgroundImage: subItem.iconImage,
-                                  backgroundColor: Colors.transparent,
-                                )
-                              : (subItem.icon != null
-                                  ? Icon(
-                                      subItem.icon,
-                                      size: widget.iconSize,
-                                      color: widget.iconColor,
-                                    )
-                                  : SizedBox(
-                                      width: widget.iconSize,
-                                      height: widget.iconSize,
-                                    )),
-                          iconSize: widget.iconSize,
-                          iconColor: widget.iconColor,
-                          title: subItem.text,
-                          textStyle: widget.textStyle,
-                          isCollapsed: widget.isCollapsed,
-                          minWidth: widget.minWidth,
-                          onTap: () {
-                            subItem.onPressed();
-                          },
-                          onLongPress: () {
-                            if (subItem.onHold != null) {
-                              subItem.onHold!();
-                            }
-                          },
-                          subItems: subItem.subItems,
-                        ))
-                    .toList(),
+                children: widget.subItems.map((subItem) {
+                  return CollapsibleItemWidget(
+                    onHoverPointer: widget.onHoverPointer,
+                    padding: widget.padding,
+                    offsetX: widget.offsetX,
+                    scale: widget.scale,
+                    leading: subItem.iconImage != null
+                        ? CircleAvatar(
+                            radius: widget.iconSize! / 2,
+                            backgroundImage: subItem.iconImage,
+                            backgroundColor: Colors.transparent,
+                          )
+                        : (subItem.icon != null
+                            ? Icon(
+                                subItem.icon,
+                                size: widget.iconSize,
+                                color: widget.iconColor,
+                              )
+                            : SizedBox(
+                                width: widget.iconSize,
+                                height: widget.iconSize,
+                              )),
+                    iconSize: widget.iconSize,
+                    iconColor: widget.iconColor,
+                    title: subItem.text,
+                    textStyle: widget.textStyle,
+                    isCollapsed: widget.isCollapsed,
+                    minWidth: widget.minWidth,
+                    onTap: () {
+                      subItem.onPressed();
+                    },
+                    onLongPress: () {
+                      if (subItem.onHold != null) {
+                        subItem.onHold!();
+                      }
+                    },
+                    subItems: subItem.subItems,
+                  );
+                }).toList(),
               ),
             ),
           ),

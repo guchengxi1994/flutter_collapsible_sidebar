@@ -32,8 +32,8 @@ class SidebarPage extends StatefulWidget {
 }
 
 class _SidebarPageState extends State<SidebarPage> {
-  List<CollapsibleItem> _items;
-  String _headline;
+  List<CollapsibleItem> _items = [];
+  String _headline = "";
   AssetImage _avatarImg = AssetImage('assets/man.png');
 
   @override

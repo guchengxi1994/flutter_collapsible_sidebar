@@ -64,6 +64,7 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
           padding: EdgeInsets.all(widget.padding),
           child: widget.subItems == null
               ? GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: widget.onTap,
                   onLongPress: widget.onLongPress,
                   child: Row(
