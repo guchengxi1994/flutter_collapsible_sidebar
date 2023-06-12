@@ -386,7 +386,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       return Visibility(
           visible: item.visible,
           child: CollapsibleItemWidget(
-            route: widget.items[index].route,
+            route: widget.items[index].router,
             onHoverPointer: widget.onHoverPointer,
             padding: widget.itemPadding,
             offsetX: _offsetX,

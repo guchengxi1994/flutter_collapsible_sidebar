@@ -51,10 +51,10 @@ class _SidebarPageState extends State<SidebarPage> {
           onHold: () => ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: const Text("Dashboard"))),
           isSelected: true,
-          route: "Dashboard",
+          router: "Dashboard",
           subItems: [
             CollapsibleItem(
-              route: "Dashboard/Menu",
+              router: "Dashboard/Menu",
               text: 'Menu',
               icon: Icons.menu_book,
               onPressed: () => setState(() => _headline = 'Menu'),
@@ -63,7 +63,7 @@ class _SidebarPageState extends State<SidebarPage> {
               isSelected: true,
             ),
             CollapsibleItem(
-              route: "Dashboard/Shop",
+              router: "Dashboard/Shop",
               text: 'Shop',
               iconImage: AssetImage("assets/shop_icon.png"),
               icon: Icons.ac_unit,
@@ -76,7 +76,7 @@ class _SidebarPageState extends State<SidebarPage> {
       CollapsibleItem(
         visible: false,
         text: 'Search',
-        route: "Search",
+        router: "Search",
         icon: Icons.search,
         onPressed: () => setState(() => _headline = 'Search'),
         onHold: () => ScaffoldMessenger.of(context)
@@ -84,7 +84,7 @@ class _SidebarPageState extends State<SidebarPage> {
       ),
       CollapsibleItem(
         text: 'Notifications',
-        route: "Notifications",
+        router: "Notifications",
         icon: Icons.notifications,
         onPressed: () => setState(() => _headline = 'Notifications'),
         onHold: () => ScaffoldMessenger.of(context)
@@ -92,14 +92,14 @@ class _SidebarPageState extends State<SidebarPage> {
       ),
       CollapsibleItem(
         text: 'Settings',
-        route: "Settings",
+        router: "Settings",
         icon: Icons.settings,
         onPressed: () => setState(() => _headline = 'Settings'),
         onHold: () => ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: const Text("Settings"))),
       ),
       CollapsibleItem(
-        route: "Alarm",
+        router: "Alarm",
         text: 'Alarm',
         icon: Icons.access_alarm,
         onPressed: () => setState(() => _headline = 'Alarm'),
@@ -107,7 +107,7 @@ class _SidebarPageState extends State<SidebarPage> {
             .showSnackBar(SnackBar(content: const Text("Alarm"))),
       ),
       CollapsibleItem(
-        route: "Eco",
+        router: "Eco",
         text: 'Eco',
         icon: Icons.eco,
         onPressed: () => setState(() => _headline = 'Eco'),
@@ -115,7 +115,7 @@ class _SidebarPageState extends State<SidebarPage> {
             .showSnackBar(SnackBar(content: const Text("Eco"))),
       ),
       CollapsibleItem(
-        route: "Event",
+        router: "Event",
         text: 'Event',
         icon: Icons.event,
         onPressed: () => setState(() => _headline = 'Event'),
@@ -124,14 +124,14 @@ class _SidebarPageState extends State<SidebarPage> {
       ),
       CollapsibleItem(
         visible: false,
-        route: "No Icon",
+        router: "No Icon",
         text: 'No Icon',
         onPressed: () => setState(() => _headline = 'No Icon'),
         onHold: () => ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: const Text("No Icon"))),
       ),
       CollapsibleItem(
-        route: "Email",
+        router: "Email",
         text: 'Email',
         icon: Icons.email,
         onPressed: () => setState(() => _headline = 'Email'),
@@ -139,7 +139,7 @@ class _SidebarPageState extends State<SidebarPage> {
             .showSnackBar(SnackBar(content: const Text("Email"))),
       ),
       CollapsibleItem(
-          route: "News",
+          router: "News",
           text: 'News',
           iconImage: NetworkImage(
               "https://cdn-icons-png.flaticon.com/512/330/330703.png"),
@@ -148,7 +148,7 @@ class _SidebarPageState extends State<SidebarPage> {
               .showSnackBar(SnackBar(content: const Text("News"))),
           subItems: [
             CollapsibleItem(
-              route: "News/Old News",
+              router: "News/Old News",
               text: 'Old News',
               icon: Icons.elderly,
               onPressed: () => setState(() => _headline = 'Old News'),
@@ -156,7 +156,7 @@ class _SidebarPageState extends State<SidebarPage> {
                   .showSnackBar(SnackBar(content: const Text("Old News"))),
             ),
             CollapsibleItem(
-              route: "News/Current News",
+              router: "News/Current News",
               text: 'Current News',
               icon: Icons.yard_outlined,
               onPressed: () => setState(() => _headline = 'Current News'),
@@ -164,7 +164,7 @@ class _SidebarPageState extends State<SidebarPage> {
                   .showSnackBar(SnackBar(content: const Text("Current News"))),
             ),
             CollapsibleItem(
-              route: "News/New News",
+              router: "News/New News",
               text: 'New News',
               icon: Icons.account_balance,
               onPressed: () => setState(() => _headline = 'New News'),
@@ -174,7 +174,7 @@ class _SidebarPageState extends State<SidebarPage> {
           ]),
       CollapsibleItem(
         text: 'Face',
-        route: "Face",
+        router: "Face",
         icon: Icons.face,
         onPressed: () => setState(() => _headline = 'Face'),
         onHold: () => ScaffoldMessenger.of(context)

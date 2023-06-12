@@ -10,11 +10,11 @@ class CollapsibleItem {
       this.onHold,
       this.isSelected = false,
       this.subItems,
-      required this.route,
+      required this.router,
       this.visible = true});
 
   final String text;
-  final String route;
+  final String router;
   IconData? icon;
   ImageProvider? iconImage;
   final Function onPressed;
@@ -27,9 +27,9 @@ class CollapsibleItem {
     if (other is! CollapsibleItem) {
       return false;
     }
-    return other.text == text && other.route == route;
+    return other.text == text && other.router == router;
   }
 
   @override
-  int get hashCode => text.hashCode + route.hashCode;
+  int get hashCode => text.hashCode + router.hashCode;
 }

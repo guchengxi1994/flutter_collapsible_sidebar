@@ -107,7 +107,7 @@ class _CollapsibleMultiLevelItemWidgetState
               child: Column(
                 children: widget.subItems.map((subItem) {
                   return CollapsibleItemWidget(
-                    route: subItem.route,
+                    route: subItem.router,
                     onHoverPointer: widget.onHoverPointer,
                     padding: widget.padding,
                     offsetX: widget.offsetX,
@@ -135,8 +135,8 @@ class _CollapsibleMultiLevelItemWidgetState
                     isCollapsed: widget.isCollapsed,
                     minWidth: widget.minWidth,
                     onTap: () {
-                      debugPrint("[sub-current-index]:${subItem.route}");
-                      global.currentRoute.value = subItem.route;
+                      debugPrint("[sub-current-index]:${subItem.router}");
+                      global.currentRoute.value = subItem.router;
                       subItem.onPressed();
                     },
                     onLongPress: () {
