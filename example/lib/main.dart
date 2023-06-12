@@ -34,7 +34,6 @@ class SidebarPage extends StatefulWidget {
 class _SidebarPageState extends State<SidebarPage> {
   List<CollapsibleItem> _items = [];
   String _headline = "";
-  AssetImage _avatarImg = AssetImage('assets/man.png');
 
   @override
   void initState() {
@@ -75,6 +74,7 @@ class _SidebarPageState extends State<SidebarPage> {
             ),
           ]),
       CollapsibleItem(
+        visible: false,
         text: 'Search',
         route: "Search",
         icon: Icons.search,
@@ -123,6 +123,7 @@ class _SidebarPageState extends State<SidebarPage> {
             .showSnackBar(SnackBar(content: const Text("Event"))),
       ),
       CollapsibleItem(
+        visible: false,
         route: "No Icon",
         text: 'No Icon',
         onPressed: () => setState(() => _headline = 'No Icon'),
@@ -187,11 +188,32 @@ class _SidebarPageState extends State<SidebarPage> {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: CollapsibleSidebar(
+        avatar: Builder(builder: (ctx) {
+          return Container(
+            width: 200,
+            height: 100,
+            child: Center(
+              child: Text(
+                "This is title",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        }),
+        collapsedAvatar: Builder(builder: (ctx) {
+          return Container(
+            height: 100,
+            child: Center(
+              child: Text(
+                "Title",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        }),
         isCollapsed: MediaQuery.of(context).size.width <= 800,
         items: _items,
         collapseOnBodyTap: false,
-        avatarImg: _avatarImg,
-        title: 'John Smith',
         onTitleTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Yay! Flutter Collapsible Sidebar!')));

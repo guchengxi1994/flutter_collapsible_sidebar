@@ -13,11 +13,10 @@ import 'package:collapsible_sidebar/collapsible_sidebar/global.dart' as global;
 export 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item.dart';
 
 class CollapsibleSidebar extends StatefulWidget {
-  const CollapsibleSidebar({
+  CollapsibleSidebar({
     Key? key,
     required this.items,
     required this.body,
-    this.title = 'Lorem Ipsum',
     this.titleStyle,
     this.titleBack = false,
     this.titleBackIcon = Icons.arrow_back,
@@ -25,7 +24,6 @@ class CollapsibleSidebar extends StatefulWidget {
     this.textStyle,
     this.toggleTitleStyle,
     this.toggleTitle = 'Collapse',
-    this.avatarImg,
     this.height = double.infinity,
     this.minWidth = 80,
     this.maxWidth = 270,
@@ -49,7 +47,8 @@ class CollapsibleSidebar extends StatefulWidget {
     this.onTitleTap,
     this.isCollapsed = true,
     this.collapseOnBodyTap = true,
-    this.showTitle = true,
+    this.avatar,
+    this.collapsedAvatar,
     this.sidebarBoxShadow = const [
       BoxShadow(
         color: Colors.blue,
@@ -58,10 +57,13 @@ class CollapsibleSidebar extends StatefulWidget {
         offset: Offset(3, 3),
       ),
     ],
-  }) : super(key: key);
+  }) {
+    if (avatar != null) {
+      assert(collapsedAvatar != null);
+    }
+  }
 
-  final avatarImg;
-  final String title, toggleTitle;
+  final String toggleTitle;
   final MouseCursor onHoverPointer;
   final TextStyle? titleStyle, textStyle, toggleTitleStyle;
   final IconData titleBackIcon;
@@ -70,7 +72,6 @@ class CollapsibleSidebar extends StatefulWidget {
       fitItemsToBottom,
       isCollapsed,
       titleBack,
-      showTitle,
       collapseOnBodyTap;
   final List<CollapsibleItem> items;
   final double height,
@@ -94,6 +95,8 @@ class CollapsibleSidebar extends StatefulWidget {
   final Curve curve;
   final VoidCallback? onTitleTap;
   final List<BoxShadow> sidebarBoxShadow;
+  final Builder? avatar;
+  final Builder? collapsedAvatar;
 
   @override
   _CollapsibleSidebarState createState() => _CollapsibleSidebarState();
@@ -131,6 +134,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
 
     _selectedItemIndex = 0;
     for (var i = 0; i < widget.items.length; i++) {
+      if (!widget.items[i].visible) continue;
       if (widget.items[i].isSelected) break;
       _selectedItemIndex += 1;
     }
@@ -238,7 +242,17 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.showTitle ? _avatar : const SizedBox(),
+              widget.avatar == null
+                  ? SizedBox()
+                  : _isCollapsed
+                      ? InkWell(
+                          onTap: widget.onTitleTap,
+                          child: widget.collapsedAvatar!,
+                        )
+                      : InkWell(
+                          onTap: widget.onTitleTap,
+                          child: widget.avatar!,
+                        ),
               SizedBox(
                 height: widget.topPadding,
               ),
@@ -330,6 +344,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
         });
   }
 
+  @Deprecated("Never used, will be removed")
   Widget get _avatar {
     return CollapsibleItemWidget(
       route: "avatar",
@@ -346,11 +361,11 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
           : CollapsibleAvatar(
               backgroundColor: widget.unselectedIconColor,
               avatarSize: widget.iconSize,
-              name: widget.title,
-              avatarImg: widget.avatarImg,
+              name: "",
+              avatarImg: null,
               textStyle: _textStyle(widget.backgroundColor, widget.titleStyle),
             ),
-      title: widget.title,
+      title: "",
       textStyle: _textStyle(widget.unselectedTextColor, widget.titleStyle),
       isCollapsed: _isCollapsed,
       minWidth: widget.minWidth,
@@ -361,57 +376,72 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
   List<Widget> get _items {
     return List.generate(widget.items.length, (index) {
       var item = widget.items[index];
+      // print("$index ${item.text} ${item.visible}");
       var iconColor = widget.unselectedIconColor;
       var textColor = widget.unselectedTextColor;
       if (item.isSelected) {
         iconColor = widget.selectedIconColor;
         textColor = widget.selectedTextColor;
       }
-      return CollapsibleItemWidget(
-        route: widget.items[index].route,
-        onHoverPointer: widget.onHoverPointer,
-        padding: widget.itemPadding,
-        offsetX: _offsetX,
-        scale: _fraction,
-        leading: item.iconImage != null
-            ? CircleAvatar(
-                radius: widget.iconSize / 2,
-                backgroundImage: item.iconImage,
-                backgroundColor: Colors.transparent,
-              )
-            : (item.icon != null
-                ? Icon(
-                    item.icon,
-                    size: widget.iconSize,
-                    color: iconColor,
+      return Visibility(
+          visible: item.visible,
+          child: CollapsibleItemWidget(
+            route: widget.items[index].route,
+            onHoverPointer: widget.onHoverPointer,
+            padding: widget.itemPadding,
+            offsetX: _offsetX,
+            scale: _fraction,
+            leading: item.iconImage != null
+                ? CircleAvatar(
+                    radius: widget.iconSize / 2,
+                    backgroundImage: item.iconImage,
+                    backgroundColor: Colors.transparent,
                   )
-                : SizedBox(
-                    width: widget.iconSize,
-                    height: widget.iconSize,
-                  )),
-        iconSize: widget.iconSize,
-        iconColor: iconColor,
-        title: item.text,
-        textStyle: _textStyle(textColor, widget.textStyle),
-        isCollapsed: _isCollapsed,
-        minWidth: widget.minWidth,
-        isSelected: item.isSelected,
-        parentComponent: true,
-        onTap: () {
-          debugPrint("[current-index]:$_selectedItemIndex");
-          if (item.isSelected) return;
-          item.onPressed();
-          item.isSelected = true;
-          widget.items[_selectedItemIndex].isSelected = false;
-          setState(() => _selectedItemIndex = index);
-        },
-        onLongPress: () {
-          if (item.onHold != null) {
-            item.onHold!();
-          }
-        },
-        subItems: item.subItems,
-      );
+                : (item.icon != null
+                    ? Icon(
+                        item.icon,
+                        size: widget.iconSize,
+                        color: iconColor,
+                      )
+                    : SizedBox(
+                        width: widget.iconSize,
+                        height: widget.iconSize,
+                      )),
+            iconSize: widget.iconSize,
+            iconColor: iconColor,
+            title: item.text,
+            textStyle: _textStyle(textColor, widget.textStyle),
+            isCollapsed: _isCollapsed,
+            minWidth: widget.minWidth,
+            isSelected: item.isSelected,
+            parentComponent: true,
+            onTap: () {
+              if (item.isSelected) return;
+              item.onPressed();
+              item.isSelected = true;
+              _selectedItemIndex = 0;
+              for (var i = 0; i < widget.items.length; i++) {
+                if (widget.items[i] != item) {
+                  widget.items[i].isSelected = false;
+                }
+              }
+
+              for (var i = 0; i < widget.items.length; i++) {
+                if (!widget.items[i].visible) continue;
+                if (widget.items[i].isSelected) break;
+                _selectedItemIndex += 1;
+              }
+
+              setState(() {});
+              debugPrint("[current-index]:$_selectedItemIndex");
+            },
+            onLongPress: () {
+              if (item.onHold != null) {
+                item.onHold!();
+              }
+            },
+            subItems: item.subItems,
+          ));
     });
   }
 
