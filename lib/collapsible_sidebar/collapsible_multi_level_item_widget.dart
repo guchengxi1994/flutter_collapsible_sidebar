@@ -70,6 +70,7 @@ class _CollapsibleMultiLevelItemWidgetState
         isOpen = false;
       });
     }
+
     return Column(
       children: [
         GestureDetector(
@@ -105,6 +106,7 @@ class _CollapsibleMultiLevelItemWidgetState
               child: Column(
                 children: widget.subItems.map((subItem) {
                   return CollapsibleItemWidget(
+                    route: subItem.route,
                     onHoverPointer: widget.onHoverPointer,
                     padding: widget.padding,
                     offsetX: widget.offsetX,
@@ -132,6 +134,7 @@ class _CollapsibleMultiLevelItemWidgetState
                     isCollapsed: widget.isCollapsed,
                     minWidth: widget.minWidth,
                     onTap: () {
+                      debugPrint("[sub-current-index]:${subItem.route}");
                       subItem.onPressed();
                     },
                     onLongPress: () {

@@ -325,6 +325,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
 
   Widget get _avatar {
     return CollapsibleItemWidget(
+      route: "avatar",
       onHoverPointer: widget.onHoverPointer,
       padding: widget.itemPadding,
       offsetX: _offsetX,
@@ -360,6 +361,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
         textColor = widget.selectedTextColor;
       }
       return CollapsibleItemWidget(
+        route: widget.items[index].route,
         onHoverPointer: widget.onHoverPointer,
         padding: widget.itemPadding,
         offsetX: _offsetX,
@@ -389,6 +391,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
         isSelected: item.isSelected,
         parentComponent: true,
         onTap: () {
+          debugPrint("[current-index]:$_selectedItemIndex");
           if (item.isSelected) return;
           item.onPressed();
           item.isSelected = true;
@@ -407,6 +410,7 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
 
   Widget get _toggleButton {
     return CollapsibleItemWidget(
+      route: "toggle",
       onHoverPointer: widget.onHoverPointer,
       padding: widget.itemPadding,
       offsetX: _offsetX,

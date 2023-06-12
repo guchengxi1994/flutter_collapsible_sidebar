@@ -2,29 +2,33 @@ import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_multi_level_item_widget.dart';
 import 'package:flutter/material.dart';
 
+typedef OnTap = Function(String);
+
 class CollapsibleItemWidget extends StatefulWidget {
-  const CollapsibleItemWidget({
-    required this.onHoverPointer,
-    required this.leading,
-    required this.title,
-    required this.textStyle,
-    required this.padding,
-    required this.offsetX,
-    required this.scale,
-    this.isCollapsed,
-    this.isSelected,
-    this.minWidth,
-    this.onTap,
-    this.subItems,
-    this.onLongPress,
-    this.iconSize,
-    this.iconColor,
-    this.parentComponent,
-  });
+  const CollapsibleItemWidget(
+      {required this.onHoverPointer,
+      required this.leading,
+      required this.title,
+      required this.textStyle,
+      required this.padding,
+      required this.offsetX,
+      required this.scale,
+      required this.route,
+      this.isCollapsed,
+      this.isSelected,
+      this.minWidth,
+      this.onTap,
+      this.subItems,
+      this.onLongPress,
+      this.iconSize,
+      this.iconColor,
+      this.parentComponent,
+      this.isSubitemRouteMatches});
 
   final MouseCursor onHoverPointer;
   final Widget leading;
   final String title;
+  final String route;
   final TextStyle textStyle;
   final double offsetX, scale, padding;
   final bool? isCollapsed;
@@ -36,6 +40,7 @@ class CollapsibleItemWidget extends StatefulWidget {
   final Color? iconColor;
   final bool? parentComponent;
   final VoidCallback? onLongPress;
+  final bool? isSubitemRouteMatches;
 
   @override
   _CollapsibleItemWidgetState createState() => _CollapsibleItemWidgetState();
@@ -60,7 +65,10 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
       cursor: widget.onHoverPointer,
       child: LayoutBuilder(builder: (context, boxConstraints) {
         return Container(
-          color: Colors.transparent,
+          color: (widget.isSubitemRouteMatches == null ||
+                  widget.isSubitemRouteMatches == false)
+              ? Colors.transparent
+              : Colors.red,
           padding: EdgeInsets.all(widget.padding),
           child: widget.subItems == null
               ? GestureDetector(
