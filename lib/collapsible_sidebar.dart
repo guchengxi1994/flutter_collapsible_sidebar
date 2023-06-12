@@ -8,6 +8,7 @@ import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item_selection.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:collapsible_sidebar/collapsible_sidebar/global.dart' as global;
 
 export 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item.dart';
 
@@ -285,42 +286,48 @@ class _CollapsibleSidebarState extends State<CollapsibleSidebar>
       ),
     );
 
-    return _isCollapsed
-        ? Stack(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topLeft
-                : Alignment.topRight,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: widget.minWidth * 1.1),
-                child: widget.body,
-              ),
-              sidebar,
-            ],
-          )
-        : Stack(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topLeft
-                : Alignment.topRight,
-            children: [
-              widget.collapseOnBodyTap
-                  ? GestureDetector(
-                      onTap: () {
-                        _isCollapsed = true;
-                        _animateTo(widget.minWidth);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(left: widget.minWidth * 1.1),
-                        child: widget.body,
-                      ),
-                    )
-                  : Padding(
+    return ValueListenableBuilder<String>(
+        valueListenable: global.currentRoute,
+        builder: (ctx, v, c) {
+          return _isCollapsed
+              ? Stack(
+                  alignment: Directionality.of(context) == TextDirection.ltr
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
+                  children: [
+                    Padding(
                       padding: EdgeInsets.only(left: widget.minWidth * 1.1),
                       child: widget.body,
                     ),
-              sidebar,
-            ],
-          );
+                    sidebar,
+                  ],
+                )
+              : Stack(
+                  alignment: Directionality.of(context) == TextDirection.ltr
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
+                  children: [
+                    widget.collapseOnBodyTap
+                        ? GestureDetector(
+                            onTap: () {
+                              _isCollapsed = true;
+                              _animateTo(widget.minWidth);
+                            },
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(left: widget.minWidth * 1.1),
+                              child: widget.body,
+                            ),
+                          )
+                        : Padding(
+                            padding:
+                                EdgeInsets.only(left: widget.minWidth * 1.1),
+                            child: widget.body,
+                          ),
+                    sidebar,
+                  ],
+                );
+        });
   }
 
   Widget get _avatar {

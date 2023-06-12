@@ -1,6 +1,7 @@
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'global.dart' as global;
 
 class CollapsibleMultiLevelItemWidget extends StatefulWidget {
   const CollapsibleMultiLevelItemWidget({
@@ -135,6 +136,7 @@ class _CollapsibleMultiLevelItemWidgetState
                     minWidth: widget.minWidth,
                     onTap: () {
                       debugPrint("[sub-current-index]:${subItem.route}");
+                      global.currentRoute.value = subItem.route;
                       subItem.onPressed();
                     },
                     onLongPress: () {

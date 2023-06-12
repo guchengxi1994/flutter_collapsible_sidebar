@@ -1,29 +1,28 @@
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:collapsible_sidebar/collapsible_sidebar/collapsible_multi_level_item_widget.dart';
 import 'package:flutter/material.dart';
-
-typedef OnTap = Function(String);
+import 'global.dart' as global;
 
 class CollapsibleItemWidget extends StatefulWidget {
-  const CollapsibleItemWidget(
-      {required this.onHoverPointer,
-      required this.leading,
-      required this.title,
-      required this.textStyle,
-      required this.padding,
-      required this.offsetX,
-      required this.scale,
-      required this.route,
-      this.isCollapsed,
-      this.isSelected,
-      this.minWidth,
-      this.onTap,
-      this.subItems,
-      this.onLongPress,
-      this.iconSize,
-      this.iconColor,
-      this.parentComponent,
-      this.isSubitemRouteMatches});
+  const CollapsibleItemWidget({
+    required this.onHoverPointer,
+    required this.leading,
+    required this.title,
+    required this.textStyle,
+    required this.padding,
+    required this.offsetX,
+    required this.scale,
+    required this.route,
+    this.isCollapsed,
+    this.isSelected,
+    this.minWidth,
+    this.onTap,
+    this.subItems,
+    this.onLongPress,
+    this.iconSize,
+    this.iconColor,
+    this.parentComponent,
+  });
 
   final MouseCursor onHoverPointer;
   final Widget leading;
@@ -40,7 +39,6 @@ class CollapsibleItemWidget extends StatefulWidget {
   final Color? iconColor;
   final bool? parentComponent;
   final VoidCallback? onLongPress;
-  final bool? isSubitemRouteMatches;
 
   @override
   _CollapsibleItemWidgetState createState() => _CollapsibleItemWidgetState();
@@ -65,21 +63,25 @@ class _CollapsibleItemWidgetState extends State<CollapsibleItemWidget> {
       cursor: widget.onHoverPointer,
       child: LayoutBuilder(builder: (context, boxConstraints) {
         return Container(
-          color: (widget.isSubitemRouteMatches == null ||
-                  widget.isSubitemRouteMatches == false)
-              ? Colors.transparent
-              : Colors.red,
+          color: Colors.transparent,
           padding: EdgeInsets.all(widget.padding),
-          child: widget.subItems == null
-              ? GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: widget.onTap,
-                  onLongPress: widget.onLongPress,
-                  child: Row(
-                    children: [
-                      widget.leading,
-                      _title,
-                    ],
+          child: widget.subItems == null || widget.subItems!.isEmpty
+              ? Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: widget.route != global.currentRoute.value
+                          ? Colors.transparent
+                          : Color(0xff2B3138)),
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: widget.onTap,
+                    onLongPress: widget.onLongPress,
+                    child: Row(
+                      children: [
+                        widget.leading,
+                        _title,
+                      ],
+                    ),
                   ),
                 )
               : CollapsibleMultiLevelItemWidget(

@@ -64,25 +64,15 @@ class _SidebarPageState extends State<SidebarPage> {
               isSelected: true,
             ),
             CollapsibleItem(
-                route: "Dashboard/Shop",
-                text: 'Shop',
-                iconImage: AssetImage("assets/shop_icon.png"),
-                icon: Icons.ac_unit,
-                onPressed: () => setState(() => _headline = 'Shop'),
-                onHold: () => ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: const Text("Shop"))),
-                isSelected: true,
-                subItems: [
-                  CollapsibleItem(
-                    route: "Dashboard/Shop/Chart",
-                    text: 'Cart',
-                    icon: Icons.shopping_cart,
-                    onPressed: () => setState(() => _headline = 'Cart'),
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: const Text("Cart"))),
-                    isSelected: true,
-                  )
-                ]),
+              route: "Dashboard/Shop",
+              text: 'Shop',
+              iconImage: AssetImage("assets/shop_icon.png"),
+              icon: Icons.ac_unit,
+              onPressed: () => setState(() => _headline = 'Shop'),
+              onHold: () => ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: const Text("Shop"))),
+              isSelected: true,
+            ),
           ]),
       CollapsibleItem(
         text: 'Search',
@@ -165,49 +155,13 @@ class _SidebarPageState extends State<SidebarPage> {
                   .showSnackBar(SnackBar(content: const Text("Old News"))),
             ),
             CollapsibleItem(
-                route: "News/Current News",
-                text: 'Current News',
-                icon: Icons.yard_outlined,
-                onPressed: () => setState(() => _headline = 'Current News'),
-                onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: const Text("Current News"))),
-                subItems: [
-                  CollapsibleItem(
-                    route: "News/Current News/News 1",
-                    text: 'News 1',
-                    icon: Icons.one_k,
-                    onPressed: () => setState(() => _headline = 'News 1'),
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: const Text("News 1"))),
-                  ),
-                  CollapsibleItem(
-                      route: "News/Current News/News 2",
-                      text: 'News 2',
-                      icon: Icons.two_k,
-                      onPressed: () => setState(() => _headline = 'News 2'),
-                      onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: const Text("News 2"))),
-                      subItems: [
-                        CollapsibleItem(
-                          route: "News/Current News/News 2/News 2 Detail",
-                          text: 'News 2 Detail',
-                          icon: Icons.two_k_outlined,
-                          onPressed: () =>
-                              setState(() => _headline = 'News 2 Detail'),
-                          onHold: () => ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(
-                                  content: const Text("News 2 Detail"))),
-                        )
-                      ]),
-                  CollapsibleItem(
-                    route: "News/Current News/News 3",
-                    text: 'News 3',
-                    icon: Icons.three_k,
-                    onPressed: () => setState(() => _headline = 'News 3'),
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: const Text("News 3"))),
-                  )
-                ]),
+              route: "News/Current News",
+              text: 'Current News',
+              icon: Icons.yard_outlined,
+              onPressed: () => setState(() => _headline = 'Current News'),
+              onHold: () => ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: const Text("Current News"))),
+            ),
             CollapsibleItem(
               route: "News/New News",
               text: 'New News',
